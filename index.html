@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div id="app">
+        Hola {{nombre}}
+        <p><a v-bind:href="url" target="_blank">Ir a {{ pagina }}</a></p>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+        let app = new Vue({
+            el: '#app',
+            data: {
+                nombre: 'Mundo!!',
+                url: 'https://google.com',
+                pagina: 'Google'
+            }
+        }
+        )
+    </script>
+</body>
+</html>
