@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <div id="app">
+            <input type="text" placeholder="Ingresa tu nombre" v-model="nombre">
+            <p>Tu nombre es: {{nombre | uppercase}}</p>
+
+            <form @submit.prevent="enviarDatos" method="get">
+                <h2>Cuales son tus cursos favoritos</h2>
+                <input type="checkbox" v-model="curso" id="vue" value="vue">
+                <label for="vue">Curso de VUE</label>
+                <input type="checkbox" v-model="curso" id="seo" value="seo">
+                <label for="seo">Curso de SEO</label>
+                <input type="checkbox" v-model="curso" id="react" value="react">
+                <label for="react">Curso de REACT</label>
+                <br>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>        
+        <script src="https://unpkg.com/vue"></script>
+        <script type="text/javascript">
+                let app = new Vue({
+                    el: '#app',
+                    data:{
+                        nombre:"",
+                        curso:[]
+                    },
+                    filters : {
+                        uppercase : function (str){
+                            return str.toUpperCase()
+                        }
+                    },
+                    methods:{
+                        enviarDatos : function(){
+                         console.log('Click on submit');
+                         console.log(this.curso);
+                        }
+                    }
+                })
+        </script>
+</body>
+</html>
