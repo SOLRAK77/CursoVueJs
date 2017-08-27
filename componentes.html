@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <h1>Ciclo en vueJs</h1>
+        <div id="app">
+                <form @submit.prevent="enviarDatos" method="get">
+                        <h2>Cuales son tus cursos favoritos</h2>
+                        <template v-for="curso in cursos"> 
+                            <curso :curso="curso" @checked="selectCurso" ></curso>
+                        </template>
+                        <br>
+                        <button type="submit">Enviar</button>
+                    </form>
+        </div>
+        <script src="https://unpkg.com/vue"></script>
+        <script type="text/javascript">
+                Vue.component('curso', {
+                    props: ['curso'],
+                    methods:{
+                        onchange:function (ev) {
+                            this.$emit('checked',this.curso.value,ev.target.checked)
+                        }
+                    },
+                    template: `
+                        <div>
+                            <input type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value" @change="onchange">
+                            <label v-bind:for="curso.value">{{curso.nombre}}</label>
+                        </div>
+                    `
+                }
+                )
+
+                let app = new Vue({
+                    el: '#app',
+                    data: {
+                        cursos : [
+                            {nombre:"Curso Introduccion VueJs",value:"vue"},
+                            {nombre:"Curso de SEO",value:"seo"},
+                            {nombre:"Curso de REACT",value:"react"},
+                            {nombre:"Curso de Marketing",value:"grow"}
+                        ],
+                        cursosSelec : []
+                    },
+                    methods: {
+                        enviarDatos: function(){
+                            console.log(this.cursosSelec);
+                        },
+                        selectCurso: function(curso,checked){
+                            if(checked){
+                                this.cursosSelec.push(curso)
+                            }
+                            else{
+                                let index = this.cursosSelec.indexOf(curso)
+                                this.cursosSelec.splice(index,1)
+                            }
+                        }                        
+                    }
+                })
+        </script>
+</body>
+</html>
