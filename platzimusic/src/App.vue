@@ -1,6 +1,6 @@
 <template lang="pug">
 #app
-  img(src='./assets/logo.png')
+  img(src='https://solrak77.github.io/CursoVueJs/platzimusic/dist/logo.png')
   h1 Platzi Music SOLRAK
   select(v-model="selpais")
     option(v-for="pais in countries" v-bind:value="pais.value") {{ pais.name }}
