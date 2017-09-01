@@ -2,35 +2,59 @@
 #app
   img(src='./assets/logo.png')
   h1 Platzi Music SOLRAK
-  ul
-    li(v-for="artista in artists") {{ artista.name }}  
+  select(v-model="selpais")
+    option(v-for="pais in countries" v-bind:value="pais.value") {{ pais.name }}
+  spinner(v-show="loading")
+  ol
+    artist(v-for="artist in artists" v-bind:artist="artist" v-bind:key="artist.mbid")  
 </template>
 
 <script>
+import Artist from './components/Artist.vue'
+import Spinner from './components/Spinner.vue'
 import getArtists from './api'
 
 export default {
   name: 'app',
   data () {
     return {
-      artists:[]
-      /*artists:[
-        {name: 'Caifanes'},
-        {name: 'Heroes del Silencio'},
-        {name: 'La Lupita'},
-        {name: 'Enrique Bunbury'},
-        {name: 'Zoe'}
-      ]  */
-      
-    }  
+      artists:[],
+      countries:[
+        {name: 'Argentina', value:'argentina'},
+        {name: 'España', value:'spain'},
+        {name: 'Mexico', value:'mexico'},
+        {name: 'Chile', value:'chile'},
+        {name: 'Colombia', value:'colombia'}
+      ],
+      selpais: 'mexico',
+      loading: true
+    }
   },
-  mounted : function(){
-    const self = this
-    getArtists()
-      .then(function (artists)  {
-        self.artists = artists
-      })
+  components:{
+    Artist,
+    Spinner
   }
+  ,
+  methods: {
+    actualizaArtista() {
+        const self = this
+        this.loading= true
+        this.artists = []
+    getArtists(this.selpais)
+      .then(function (artists)  {
+        self.loading = false
+        self.artists = artists
+       })
+     }
+   },     
+  watch:{
+    selpais () {
+      this.actualizaArtista()
+    }
+  },
+  mounted(){    
+     this.actualizaArtista()
+   }
 }
 </script>
 
