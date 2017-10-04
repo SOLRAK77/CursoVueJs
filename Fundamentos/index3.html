@@ -7,16 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app">
+    <div id="app" v-if="mostrar">
         Hola mi corazon: {{nombre}}
     </div>
+    <div>
+        hola
+    </div>
+        
     <p><a href="../Index.html">Regresar</a></p>
     <script src="https://unpkg.com/vue"></script>
     <script type="text/javascript">
     let app =  new Vue({
         el:'#app',
         data:{
-            nombre:'Alejandra'
+            nombre:'Adriana',
+            mostrar : false
         }}
     )
     </script>
